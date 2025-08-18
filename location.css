@@ -1,0 +1,69 @@
+.location-section {
+    padding: 6rem 0;
+}
+
+.location-section .container {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.location-section.visible .container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.map-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid var(--text-dark);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: border-color 0.3s ease;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.map-overlay-text i {
+    margin-right: 0.5rem;
+}
+
+.map-container.map-active .map-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.map-container iframe {
+    display: block; /* Removes bottom space under iframe */
+    filter: invert(100%) hue-rotate(180deg) contrast(0.9);
+    transition: filter 0.3s ease;
+}
+
+/* --- Light Theme Overrides --- */
+body.light-theme .location-section .container {
+    border-color: var(--text-light-muted);
+}
+
+body.light-theme .map-container iframe {
+    filter: none;
+}
+
+body.light-theme .section-header .section-subtitle {
+    color: var(--text-medium-light);
+}

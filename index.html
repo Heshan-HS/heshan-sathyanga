@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Welcome to the portfolio of Heshan Sathyanga, a passionate Full-stack Software Engineer from Sri Lanka, specializing in building seamless digital experiences.">
+    <meta name="keywords" content="Heshan Sathyanga, Full-stack Developer, Software Engineer, Portfolio, Web Developer, Sri Lanka, JavaScript, React, Node.js">
+    <meta name="author" content="Heshan Sathyanga">
+
+    <!-- Open Graph Meta Tags (for social sharing) -->
+    <meta property="og:title" content="Heshan Sathyanga - Full-stack Software Engineer">
+    <meta property="og:description" content="Passionate about building seamless digital experiences that blend creativity and technology for real-world impact.">
+    <meta property="og:image" content="https://i.imgur.com/your-image.jpg"> <!-- TODO: Replace with a link to an actual preview image -->
+    <meta property="og:url" content="https://your-domain.com"> <!-- TODO: Replace with your actual domain -->
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Heshan Sathyanga - Full-stack Software Engineer">
+    <meta name="twitter:description" content="Passionate about building seamless digital experiences that blend creativity and technology for real-world impact.">
+    <meta name="twitter:image" content="https://i.imgur.com/your-image.jpg"> <!-- TODO: Replace with a link to an actual preview image -->
+    <title>Heshan - Full-stack Software Engineer</title>
+    <link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="education.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <button class="mobile-nav-toggle" aria-controls="sidebar-container" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="interactive-bg"></div>
+
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <header class="hero" id="hero">
+            <div class="hero-text">
+                <p class="availability"><span class="dot"></span> Available for Work</p>
+                <h1>Hi, I'm <span class="highlight">Heshan</span></h1>
+                <h2>Full-stack Software Engineer</h2>
+                <p class="description">
+                    Passionate about building seamless digital experiences that blend
+                    creativity and technology for real-world impact.
+                </p>
+                <div class="cta-buttons">
+                    <a href="cv/IMG_20250806_113227_017.pdf" download="Heshan_Sathyanga_CV.pdf" class="btn btn-primary"><i class="fas fa-download"></i> Download CV</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact Me</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/qr/3AUEBJZJHKIJA1"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="hero-animation">
+                <div class="animated-circle">
+                    <div class="inner-text"><div class="propic"> </div></div>
+                </div>
+            </div>
+        </header>
+
+
+        
+        <!-- About Section Container -->
+        <div id="about-container"></div>
+
+        <!-- Education Section Container -->
+        <div id="education-container"></div>
+        <div id="experience-container"></div>
+        <div id="skills-container"></div>
+        <div id="services-container"></div>
+        <div id="projects-container"></div>
+
+        <!-- Contact Section -->
+        <div id="contact-container"></div>
+
+        <!-- Location Section -->
+        <div id="location-container"></div>
+
+    </main>
+    
+    <!-- Project Quick View Modal -->
+    <div id="project-modal" class="modal-container">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Certificate Quick View Modal -->
+    <div id="certificate-modal" class="modal-container">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Scroll-to-Top Button -->
+    <a href="#" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

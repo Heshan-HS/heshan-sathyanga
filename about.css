@@ -1,0 +1,337 @@
+.about-section {
+    padding: 6rem 0;
+    background-color: transparent;
+    color: var(--text-light);
+    position: relative; /* Needed for stacking context */
+    z-index: 1; /* Ensure content is above the background */
+}
+
+
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    
+}
+
+.section.visible .section-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.aboutpic{
+      width: 339px;
+    height: 339px;
+    position: relative;
+    border-radius: 50%;
+    background: url('file_00000000b7f861f998b2075b3e3f4e84 (1).png') center/cover no-repeat;
+    
+}
+.about-section.visible .about-image {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.about-animated-circle {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 5s infinite ease-in-out;
+}
+
+.about-image img {
+    width: 85%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.about-floating-dot {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transform-origin: center center;
+}
+
+.about-text {
+    flex-basis: 60%;
+}
+
+.about-text h3, .about-text p {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.about-section.visible .about-text h3 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+
+.about-section.visible .about-text p:nth-of-type(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s;
+}
+
+.about-section.visible .about-text p:nth-of-type(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.9s;
+}
+
+.about-text h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-medium);
+    margin-bottom: 1.5rem;
+}
+
+.about-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    background-color: var(--surface-dark);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    flex-grow: 1;
+    border: 1px solid var(--text-dark);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.about-section.visible .stat-item:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+.about-section.visible .stat-item:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.8s;
+}
+
+.about-section.visible .stat-item:nth-child(3) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1s;
+}
+
+.stat-item h4 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-item p {
+    font-size: 1rem;
+    color: var(--text-medium);
+    margin-bottom: 0;
+}
+
+/* --- Skills and Process Sections --- */
+
+.skills-and-process {
+    margin-top: 5rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.about-section.visible .skills-and-process {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sub-section-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.skills-section, .work-process-section {
+    margin-bottom: 3.5rem;
+    text-align: center; /* Center the title */
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center; /* Center the tags */
+}
+
+.skill-tag {
+    background-color: var(--surface-dark);
+    color: var(--text-medium);
+    padding: 0.6rem 1.25rem;
+    border-radius: 20px;
+    border: 1px solid var(--text-dark);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.skill-tag:hover {
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+    transform: translateY(-3px) scale(1.05);
+    border-color: var(--primary-color);
+}
+
+.about-section.visible .skill-tag {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered animation for skill tags */
+.about-section.visible .design-tools .skill-tag:nth-child(1) { transition-delay: 0.2s; }
+.about-section.visible .design-tools .skill-tag:nth-child(2) { transition-delay: 0.3s; }
+.about-section.visible .design-tools .skill-tag:nth-child(3) { transition-delay: 0.4s; }
+.about-section.visible .design-tools .skill-tag:nth-child(4) { transition-delay: 0.5s; }
+.about-section.visible .design-tools .skill-tag:nth-child(5) { transition-delay: 0.6s; }
+
+.about-section.visible .technologies .skill-tag:nth-child(1) { transition-delay: 0.2s; }
+.about-section.visible .technologies .skill-tag:nth-child(2) { transition-delay: 0.3s; }
+.about-section.visible .technologies .skill-tag:nth-child(3) { transition-delay: 0.4s; }
+.about-section.visible .technologies .skill-tag:nth-child(4) { transition-delay: 0.5s; }
+.about-section.visible .technologies .skill-tag:nth-child(5) { transition-delay: 0.6s; }
+.about-section.visible .technologies .skill-tag:nth-child(6) { transition-delay: 0.7s; }
+.about-section.visible .technologies .skill-tag:nth-child(7) { transition-delay: 0.8s; }
+.about-section.visible .technologies .skill-tag:nth-child(8) { transition-delay: 0.9s; }
+
+.work-process-section {
+    margin-bottom: 2rem;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.process-step {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-dark);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--text-dark);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.process-step:hover .step-name,
+.process-step:hover .step-number {
+    color: var(--background-dark);
+}
+
+.about-section.visible .process-step {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation for process steps */
+.about-section.visible .process-step:nth-child(1) { transition-delay: 0.3s; }
+.about-section.visible .process-step:nth-child(2) { transition-delay: 0.5s; }
+.about-section.visible .process-step:nth-child(3) { transition-delay: 0.7s; }
+.about-section.visible .process-step:nth-child(4) { transition-delay: 0.9s; }
+
+.process-step .step-number {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 1rem;
+}
+
+.process-step .step-name {
+    color: var(--text-light);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 992px) {
+    .about-section {
+        padding: 4rem 2rem;
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .about-text {
+        flex-basis: 100%;
+    }
+
+    .about-stats {
+        justify-content: center;
+    }
+
+    .skills-and-process {
+        margin-top: 4rem;
+    }
+
+    .process-steps {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .about-stats {
+        flex-direction: column;
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+}
