@@ -1,3 +1,10 @@
+/* Cursor-follow halo intensity controls */
+:root {
+    --halo1: 0.08;  /* inner halo opacity (dark mode) */
+    --halo2: 0.05;  /* outer halo opacity (dark mode) */
+    --halo1-light: 0.07; /* inner halo opacity (light mode) */
+    --halo2-light: 0.045; /* outer halo opacity (light mode) */
+}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /* --- Global Animations & Transitions --- */
@@ -81,6 +88,180 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* --- Fullscreen Spline Background Layer --- */
+.spline-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* behind content */
+    pointer-events: none; /* do not block clicks */
+}
+
+.spline-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(1000px circle at 70% 30%, rgba(16,185,129,0.10), transparent 60%),
+                radial-gradient(900px circle at 20% 70%, rgba(59,130,246,0.10), transparent 60%),
+                linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%);
+}
+
+/* Light mode variant of the Spline overlay: brighter, less dark vignette */
+body.light-mode .spline-bg::after {
+    background: radial-gradient(1000px circle at 70% 30%, rgba(16,185,129,0.08), transparent 60%),
+                radial-gradient(900px circle at 20% 70%, rgba(59,130,246,0.08), transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.85) 100%);
+}
+
+.spline-bg-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --- Page Loader (gates content until Spline is ready) --- */
+@keyframes loader-rotate { to { transform: rotate(360deg); } }
+@keyframes loader-tilt { 0%,100%{ transform: rotateX(35deg) rotateY(-20deg); } 50%{ transform: rotateX(35deg) rotateY(20deg); } }
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    background: rgba(2, 6, 23, 0.55);
+    backdrop-filter: blur(6px);
+    color: #e2e8f0;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+/* 3D Orbital Loader */
+.loader-3d {
+    width: 88px;
+    height: 88px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: loader-tilt 3s ease-in-out infinite;
+}
+.loader-3d span {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    box-shadow: 0 0 40px rgba(59,130,246,0.45) inset;
+}
+.loader-3d span:nth-child(1) {
+    border-top-color: rgba(59,130,246,.95);
+    transform: rotateX(70deg);
+    animation: loader-rotate 1.4s linear infinite;
+}
+.loader-3d span:nth-child(2) {
+    border-right-color: rgba(16,185,129,.95);
+    transform: rotateY(70deg);
+    animation: loader-rotate 1.8s linear infinite reverse;
+}
+.loader-3d span:nth-child(3) {
+    border-bottom-color: rgba(255,255,255,.9);
+    transform: rotateZ(0deg);
+    animation: loader-rotate 1.2s linear infinite;
+}
+
+/* Hide loader and enable content once loading finishes */
+body:not(.loading) .page-loader {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Dim and disable interactions while loading */
+body.loading #sidebar-container,
+body.loading .main-content,
+body.loading .contact-pill,
+body.loading .interactive-bg {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Floating Contact Pill */
+.contact-pill {
+    position: fixed;
+    right: 20px;
+    bottom: 18px; /* sit close above Spline badge without covering */
+    z-index: 10;
+}
+
+.contact-pill .pill-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgb(13, 20, 29), rgb(13, 20, 29));
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    transform: translateY(0);
+    transition: transform .2s ease, box-shadow .2s ease, opacity .3s ease;
+    opacity: 0.95;
+    min-width: 140px; /* similar footprint to the Spline badge */
+    border: none;
+}
+
+.contact-pill .pill-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+    opacity: 1;
+}
+
+.contact-pill .pill-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(6px);
+}
+
+.contact-pill .pill-text {
+    letter-spacing: 0.2px;
+}
+
+/* Light mode styling for the pill: match light theme */
+body.light-mode .contact-pill .pill-link {
+    background: #dadada;
+    color: #0f172a; /* slate-900 for good contrast */
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 6px 20px rgba(2, 8, 23, 0.10);
+}
+
+body.light-mode .contact-pill .pill-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(2, 8, 23, 0.14);
+}
+
+body.light-mode .contact-pill .pill-icon {
+    background: rgba(37, 99, 235, 0.12); /* primary tint bubble */
+    color: #2563eb;
+}
+
+@media (max-width: 768px) {
+    /* Mobile: keep pill just above the Spline badge and below other content */
+    .contact-pill { right: 16px; bottom: 18px; z-index: 1; }
+    .contact-pill .pill-link { padding: 10px 14px; gap: 8px; min-width: 130px; }
+}
+
+/* Hide the scroll-to-top button to avoid overlapping the Hire Me pill */
+.scroll-to-top {
+    display: none !important;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -117,15 +298,38 @@ body.light-mode h1 .highlight {
     -webkit-text-fill-color: transparent; /* Keep gradient on light mode */
 }
 
+/* Fix for light mode icon visibility */
+body.light-mode #sidebar-container .sidebar .nav-links a i,
+body.light-mode #sidebar-container .sidebar .sidebar-bottom a i {
+    color: var(--text-medium);
+}
+
+body.light-mode #sidebar-container .sidebar .nav-links a:hover i,
+body.light-mode #sidebar-container .sidebar .sidebar-bottom a:hover i,
+body.light-mode #sidebar-container .sidebar .nav-links a.active i {
+    color: var(--primary-color);
+}
+
 .interactive-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(600px circle at var(--x) var(--y), rgba(29, 78, 216, 0.15), transparent 80%);
-    z-index: -1;
+    /* Dual blue halo following cursor/finger */
+    background:
+      radial-gradient(140px circle at var(--x) var(--y), rgba(59, 130, 246, var(--halo1)), rgba(59,130,246,0.00) 60%),
+      radial-gradient(380px circle at var(--x) var(--y), rgba(37, 99, 235, var(--halo2)), rgba(37,99,235,0.00) 75%);
+    z-index: 1; /* above spline layer, below content */
+    pointer-events: none; /* never block clicks */
     transition: background 0.1s ease-out;
+}
+
+/* Softer glow in light mode so it doesn't overpower text */
+body.light-mode .interactive-bg {
+    background:
+      radial-gradient(120px circle at var(--x) var(--y), rgba(37, 99, 235, var(--halo1-light)), rgba(37,99,235,0.00) 60%),
+      radial-gradient(340px circle at var(--x) var(--y), rgba(59,130,246,var(--halo2-light)), rgba(59,130,246,0.00) 80%);
 }
 
 /* --- Sidebar --- */
@@ -646,6 +850,16 @@ body.light-mode .btn-primary:hover {
     position: relative;
 }
 
+.hero-3d {
+    width: 520px;
+    height: 520px;
+    max-width: 46vw;
+    aspect-ratio: 1 / 1;
+    display: block;
+    margin-left: 1rem;
+    pointer-events: none; /* allow mouse to pass through */
+}
+
 .propic{
     width: 299px;
     height: 299px;
@@ -752,6 +966,10 @@ body.light-mode .btn-primary:hover {
 
     .hero-animation {
         display: none; /* Hide complex animation on mobile */
+    }
+
+    .hero-3d {
+        display: none; /* hide 3D on small screens for performance */
     }
 
     .cta-buttons, .social-links {
