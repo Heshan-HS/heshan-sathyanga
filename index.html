@@ -28,11 +28,31 @@
     <link rel="stylesheet" href="education.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="loading">
+    <!-- Page Loader -->
+    <div class="page-loader" role="status" aria-live="polite">
+        <div class="loader-3d" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     <button class="mobile-nav-toggle" aria-controls="sidebar-container" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
     <div class="interactive-bg"></div>
+    <!-- Fullscreen Spline Background Layer -->
+    <div class="spline-bg">
+        <canvas id="spline-canvas" class="spline-bg-canvas" data-scene="https://prod.spline.design/kVbVqf7W0CJv79a1/scene.splinecode" data-head-name="Head"></canvas>
+    </div>
+
+    <!-- Floating Contact Pill (above Spline badge) -->
+    <div class="contact-pill">
+        <a href="#contact" class="pill-link" aria-label="Hire Me">
+            <span class="pill-icon"><i class="fas fa-briefcase"></i></span>
+            <span class="pill-text">Hire Me</span>
+        </a>
+    </div>
 
     <div id="sidebar-container"></div>
 
@@ -107,5 +127,78 @@
 
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script type="module">
+      import { Application } from 'https://unpkg.com/@splinetool/runtime/build/runtime.js';
+      const canvas = document.getElementById('spline-canvas');
+      if (canvas) {
+        const sceneUrl = canvas.dataset.scene || '';
+        if (!sceneUrl) {
+          console.warn('Spline scene URL not set. Set data-scene on #spline-canvas.');
+        } else {
+          const app = new Application(canvas);
+          try {
+            await app.load(sceneUrl);
+            const preferredName = canvas.dataset.headName || 'Head';
+            const candidateNames = [preferredName, 'Head', 'Head_Bone', 'Head.001', 'Neck', 'Top part', 'Top', 'Bot'];
+            let head = null;
+            for (const n of candidateNames) {
+              head = app.findObjectByName(n);
+              if (head) { console.info('Using Spline object for tracking:', n, head); break; }
+            }
+            if (!head) {
+              console.warn('Spline head object not found. Set data-head-name on #spline-canvas to match your object name (e.g., "Head" or "Top part").');
+            } else {
+              const maxX = Math.PI / 8;  // up/down
+              const maxY = Math.PI / 6;  // left/right
+              let targetX = 0, targetY = 0;
+              const lerp = (a,b,t)=>a+(b-a)*t;
+              // Pointer/Touch tracking (works for mouse and mobile)
+              const root = document.documentElement;
+              const updateFromPoint = (x, y) => {
+                const nx = (x / window.innerWidth) * 2 - 1;
+                const ny = (y / window.innerHeight) * 2 - 1;
+                targetY = nx * maxY;
+                targetX = ny * maxX; // invert so moving down looks down
+                // Update cursor-follow halo position
+                root.style.setProperty('--x', x + 'px');
+                root.style.setProperty('--y', y + 'px');
+              };
+              // Initialize halo to center on load
+              updateFromPoint(window.innerWidth/2, window.innerHeight/2);
+              window.addEventListener('pointermove', (e) => {
+                updateFromPoint(e.clientX, e.clientY);
+              }, { passive: true });
+              window.addEventListener('touchmove', (e) => {
+                const t = e.touches && e.touches[0];
+                if (!t) return;
+                updateFromPoint(t.clientX, t.clientY);
+              }, { passive: true });
+              // Debug: press "D" to toggle auto-rotate test
+              let debugSpin = false; let t = 0;
+              window.addEventListener('keydown', (e)=>{ if (e.key.toLowerCase()==='d'){ debugSpin = !debugSpin; console.log('Spline debug spin:', debugSpin); } });
+              function animate() {
+                if (debugSpin) {
+                  t += 0.02; // slow spin to verify rotations apply
+                  targetY = Math.sin(t) * (maxY * 0.7);
+                  targetX = Math.cos(t * 0.8) * (maxX * 0.5);
+                }
+                head.rotation.x = lerp(head.rotation.x, targetX, 0.16);
+                head.rotation.y = lerp(head.rotation.y, targetY, 0.16);
+                requestAnimationFrame(animate);
+              }
+              animate();
+              // Reveal site after Spline is ready
+              document.body.classList.remove('loading');
+            }
+          } catch (err) {
+            console.error('Failed to load Spline scene:', err);
+            // Fail-safe: still show the site if Spline fails
+            document.body.classList.remove('loading');
+          }
+          // Fallback: ensure loader never gets stuck beyond 6s
+          setTimeout(()=>document.body.classList.remove('loading'), 6000);
+        }
+      }
+    </script>
 </body>
 </html>
