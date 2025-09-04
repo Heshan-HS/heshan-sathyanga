@@ -505,14 +505,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initProjectsSection(sectionElement) {
-        // --- Dynamic Project Card Generation ---
+        // --- Dynamic Project Card Generation & "See More" Logic ---
         const projectsGrid = sectionElement.querySelector('.projects-grid');
-        if (projectsGrid && typeof projects !== 'undefined') {
+        const seeMoreBtn = sectionElement.querySelector('#see-more-projects');
+        const projectsToShow = 3;
+
+        if (projectsGrid && typeof projects !== 'undefined' && seeMoreBtn) {
             projectsGrid.innerHTML = ''; // Clear existing projects
-            projects.forEach(project => {
+            projects.forEach((project, index) => {
                 const projectItem = document.createElement('div');
                 projectItem.className = 'project-item';
                 projectItem.setAttribute('data-project-id', project.id);
+                
+                // Add 'hidden' class to projects beyond the initial view
+                if (index >= projectsToShow) {
+                    projectItem.classList.add('hidden');
+                }
                 
                 const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
 
@@ -531,6 +539,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 projectsGrid.appendChild(projectItem);
+            });
+
+            // Hide the 'See More' button if there are not enough projects
+            if (projects.length <= projectsToShow) {
+                seeMoreBtn.style.display = 'none';
+            } else {
+                seeMoreBtn.style.display = 'inline-block';
+            }
+
+            let allVisible = false;
+            seeMoreBtn.addEventListener('click', () => {
+                allVisible = !allVisible;
+                const projectItems = projectsGrid.querySelectorAll('.project-item');
+                projectItems.forEach((item, index) => {
+                    if (index >= projectsToShow) {
+                        item.classList.toggle('hidden', !allVisible);
+                    }
+                });
+                seeMoreBtn.innerHTML = allVisible ? 'See Less <i class="fas fa-chevron-up"></i>' : 'See More <i class="fas fa-chevron-down"></i>';
+                seeMoreBtn.classList.toggle('less', allVisible);
             });
         }
 

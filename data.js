@@ -19,10 +19,37 @@ const projects = [
     },
     {
         id: 'proj3',
-        img: 'project-3.jpg',
-        title: 'Weather App',
+        img: 'Screenshot 2025-09-04 110808.png',
+        title: 'Ai Applications 3d Website',
         tags: ['API', 'JavaScript', 'HTML', 'CSS'],
-        description: 'A simple and intuitive weather application that provides real-time weather data for any location using a third-party API.',
+        description: 'We are integrating cutting-edge AI technology to transform how you interact with digital systems, making complex tasks simple and intuitive',
+        liveLink: 'https://heshan-hs.github.io/ai-apllication/',
+        sourceLink: '#'
+    },
+    {
+        id: 'proj4',
+        img: 'Screenshot 2025-09-04 114307.png',
+        title: '3D Car website',
+        tags: ['React', 'html', 'css', 'Express'],
+        description: 'A level-up version of future engineering, for a high-class experience. Hyper-realistic design with revolutionary customization.',
+        liveLink: 'https://heshan-hs.github.io/bugatti-official/index.html',
+        sourceLink: '#'
+    },
+    {
+        id: 'proj5',
+        img: 'Screenshot 2025-09-04 114556.png',
+        title: 'Movie Download Website',
+        tags: ['Vue.js', 'Firebase', 'CSS', 'JavaScript'],
+        description: 'A collaborative task management application with real-time updates and team collaboration features.',
+        liveLink: 'https://heshan-hs.github.io/movieversehub/index.html',
+        sourceLink: '#'
+    },
+    {
+        id: 'proj6',
+        img: 'Screenshot 2025-09-04 110808.png',
+        title: 'Weather Dashboard',
+        tags: ['React', 'API', 'Chart.js', 'CSS'],
+        description: 'A responsive weather dashboard that displays current weather conditions and forecasts using weather APIs.',
         liveLink: '#',
         sourceLink: '#'
     }

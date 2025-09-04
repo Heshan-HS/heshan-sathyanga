@@ -125,6 +125,59 @@
     font-weight: 600;
 }
 
+/* --- Project Item Hidden State --- */
+.project-item.hidden {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin-bottom 0.5s ease;
+}
+
+.project-item:not(.hidden) {
+    max-height: 1000px;
+    opacity: 1;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin-bottom 0.5s ease;
+}
+
+/* --- See More Button Styles --- */
+.see-more-container {
+    text-align: center;
+    margin-top: 2rem;
+    transition: opacity 0.3s ease;
+}
+
+#see-more-projects {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    background-color: transparent;
+    border: 2px solid var(--text-dark);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+#see-more-projects:hover {
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+}
+
+#see-more-projects i {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#see-more-projects.less i {
+    transform: rotate(180deg);
+}
+
 /* --- Project Modal --- */
 .modal-container {
     position: fixed;

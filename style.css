@@ -337,7 +337,7 @@ body.light-mode .interactive-bg {
     #sidebar-container .sidebar {
     width: 90px;
     height: 100vh; /* Make sidebar full height */
-    background-color: var(--surface-dark);
+    background-color: rgb(11, 24, 43);
     padding: 1.5rem 0;
     display: flex;
     flex-direction: column;
@@ -346,6 +346,12 @@ body.light-mode .interactive-bg {
     z-index: 100;
     border-right: 1px solid var(--text-dark);
 }
+
+ /* Light mode: use a light sidebar background */
+ body.light-mode #sidebar-container .sidebar {
+     background-color: #c3c3c3;
+     border-right: 1px solid rgba(15, 23, 42, 0.08);
+ }
 
 #sidebar-container .sidebar:hover {
     width: 260px;
@@ -554,13 +560,19 @@ body.light-mode .mobile-nav-toggle {
     #sidebar-container .sidebar {
         width: 280px;
         height: 100%;
-        background-color: var(--surface-dark);
+        background-color: rgb(11, 24, 43);
         padding: 2rem 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         transform: translateX(-100%);
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Light mode: mobile slide-in sidebar uses light background */
+    body.light-mode #sidebar-container .sidebar {
+        background-color: #ffffff;
+        border-right: none;
     }
 
     #sidebar-container.open .sidebar {
@@ -909,7 +921,7 @@ body.light-mode .btn-primary:hover {
         width: 100%;
         height: 100%;
         z-index: 1000;
-        background-color: rgba(15, 23, 42, 0.5); /* Semi-transparent background */
+        background-color: rgb(11, 24, 43); /* Semi-transparent background */
         backdrop-filter: blur(4px);
         opacity: 0;
         visibility: hidden;
@@ -924,13 +936,23 @@ body.light-mode .btn-primary:hover {
     #sidebar-container .sidebar {
         width: 280px;
         height: 100%;
-        background: linear-gradient(180deg, var(--surface-dark) 0%, var(--background-dark) 100%);
+        background-color: rgb(11, 24, 43);
         transform: translateX(-100%);
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         display: flex; /* Re-enable flex for content alignment */
         flex-direction: column;
         justify-content: flex-start;
         padding: 1.5rem 0;
+    }
+
+    /* Light mode: override slide-in sidebar to light background */
+    body.light-mode #sidebar-container .sidebar {
+        background-color: #ffffff;
+    }
+
+    /* Light mode: soften the full-screen overlay */
+    body.light-mode #sidebar-container {
+        background-color: rgba(0, 0, 0, 0.35);
     }
 
     #sidebar-container.open .sidebar {
